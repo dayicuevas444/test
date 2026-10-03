@@ -1,0 +1,66 @@
+using System;
+public class SecurityPassMaker
+{
+    public string GetDisplayName(TeamSupport support)
+    {
+        if (support is Staff staff)
+        {
+            if (support.GetType() == typeof(Security))
+            {
+                return staff.Title + " Priority Personnel";
+            }
+
+            return staff.Title;
+        }
+
+        return "Too Important for a Security Pass";
+    }
+    public static void Main(string[] args)
+    {
+        SecurityPassMaker passMaker = new SecurityPassMaker();
+
+        TeamSupport manager = new Manager();
+        TeamSupport chairman = new Chairman();
+        TeamSupport physio = new Physio();
+        TeamSupport offensiveCoach = new OffensiveCoach();
+        TeamSupport goalKeepingCoach = new GoalKeepingCoach();
+        TeamSupport security = new Security();
+        TeamSupport securityJunior = new SecurityJunior();
+        TeamSupport securityIntern = new SecurityIntern();
+        TeamSupport policeLiaison = new PoliceLiaison();
+
+        Console.WriteLine(passMaker.GetDisplayName(manager));
+        Console.WriteLine(passMaker.GetDisplayName(chairman));
+        Console.WriteLine(passMaker.GetDisplayName(physio));
+        Console.WriteLine(passMaker.GetDisplayName(offensiveCoach));
+        Console.WriteLine(passMaker.GetDisplayName(goalKeepingCoach));
+        Console.WriteLine(passMaker.GetDisplayName(security));
+        Console.WriteLine(passMaker.GetDisplayName(securityJunior));
+        Console.WriteLine(passMaker.GetDisplayName(securityIntern));
+        Console.WriteLine(passMaker.GetDisplayName(policeLiaison));
+    }
+}
+
+
+
+public interface TeamSupport { string Title { get; } }
+
+public abstract class Staff : TeamSupport { public abstract string Title { get; } }
+
+public class Manager : TeamSupport { public string Title { get; } = "The Manager"; }
+
+public class Chairman : TeamSupport { public string Title { get; } = "The Chairman"; }
+
+public class Physio : Staff { public override string Title { get; } = "The Physio"; }
+
+public class OffensiveCoach : Staff { public override string Title { get; } = "Offensive Coach"; }
+
+public class GoalKeepingCoach : Staff { public override string Title { get; } = "Goal Keeping Coach"; }
+
+public class Security : Staff { public override string Title { get; } = "Security Team Member"; }
+
+public class SecurityJunior : Security { public override string Title { get; } = "Security Junior"; }
+
+public class SecurityIntern : Security { public override string Title { get; } = "Security Intern"; }
+
+public class PoliceLiaison : Security { public override string Title { get; } = "Police Liaison Officer"; }
